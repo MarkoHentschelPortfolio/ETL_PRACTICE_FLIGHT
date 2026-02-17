@@ -45,7 +45,7 @@ etl_practice/
 ### Installation
 
 ```bash
-cd etl_practice
+cd etl_practice_flight
 
 # Create and activate virtual environment
 python -m venv venv
