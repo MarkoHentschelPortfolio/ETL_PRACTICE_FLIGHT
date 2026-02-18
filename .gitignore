@@ -43,6 +43,9 @@ logs/
 *.swo
 *~
 
+# Environment variables
+.env
+
 # Data files
 data/raw/*
 data/processed/*

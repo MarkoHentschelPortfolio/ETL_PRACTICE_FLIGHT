@@ -1,5 +1,7 @@
 import sys
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -9,6 +11,9 @@ from src.load import save_to_sqlite
 from src.process import FlightAnalyticsProcessor
 from config.config import DATA_CONFIGS
 from datetime import datetime
+
+# Load environment variables
+load_dotenv()
 
 # Setup class instances for each step of the ETL pipeline
 extraction_date = (datetime.now()).strftime("%Y%m%d")
@@ -24,11 +29,11 @@ processor = FlightAnalyticsProcessor(
 
 #setup params for dimensions and facts - facts will need one key per day, dimensions can be used over multiple days without hitting API limits as they have fewer records
 params_dim_data = {
-    'access_key': 'fc7f87deef1a36d71cb50b18c077e3f9',
+    'access_key': os.getenv('AVIATION_API_KEY_DIM'),
 }
     
 params_fact_data = {
-    'access_key': 'c868eeae16117539003cc89e549c3d13', #daily reset needed for flights data due to API limits
+    'access_key': os.getenv('AVIATION_API_KEY_FACT'), #daily reset needed for flights data due to API limits
 }
 
 for source_name, config in DATA_CONFIGS.items():
